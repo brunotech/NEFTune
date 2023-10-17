@@ -46,7 +46,7 @@ def get_fsdp_wrapped_empty_model(model_config, wrapped_cls, hack=False):
     # wrap the empty model inside of FSDP
     my_auto_wrap_policy = functools.partial(
         transformer_auto_wrap_policy,
-        transformer_layer_cls=set([wrapped_cls, torch.nn.Embedding]),
+        transformer_layer_cls={wrapped_cls, torch.nn.Embedding},
     )
     bf16 = MixedPrecision(param_dtype=torch.bfloat16, reduce_dtype=torch.bfloat16, buffer_dtype=torch.bfloat16)
     model = FSDP(model, auto_wrap_policy=my_auto_wrap_policy, device_id=torch.cuda.current_device(), mixed_precision=bf16)

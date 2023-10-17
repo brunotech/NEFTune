@@ -26,8 +26,7 @@ def get_args():
     parser.add_argument("--num_tokens", type=int, default=1024)
     parser.add_argument("--offload_to_cpu", action="store_true", help="Offload state dictionary to cpu before loading to gpu")
     parser.add_argument("--act_checkpoint", action="store_true", help="Use activation checkpointing to reduce the memory the model")
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 def profile_main(rank, world_size, args):
     setup(rank, world_size) 

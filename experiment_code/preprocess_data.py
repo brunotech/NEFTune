@@ -13,16 +13,14 @@ tasks_processed = []
 
 for task in tasks:
     if 'instances' in task:
-        task_input = task['instances'][0]['input']
-        if task_input:
+        if task_input := task['instances'][0]['input']:
             task['instruction'] += f"\n\n### Input:\n{task_input}"
         del task['instances']
     elif "context" in task:
-        context = task['context']
-        if context:
+        if context := task['context']:
             task['instruction'] += f"\n\n### Input:\n{task['context']}"
         del task['context']
-    
+
     tasks_processed.append(task)
 
 Dataset.from_list(tasks_processed).to_json(args.save_file_name)

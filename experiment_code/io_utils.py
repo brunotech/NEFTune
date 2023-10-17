@@ -20,8 +20,7 @@ def read_jsonlines(filename: str) -> Iterable[Mapping[str, Any]]:
     with open(filename) as fp:
         for line in tqdm.tqdm(fp.readlines(), desc=f"Reading JSON lines from {filename}", unit="lines"):
             try:
-                example = json.loads(line)
-                yield example
+                yield json.loads(line)
             except json.JSONDecodeError as ex:
                 logging.error(f'Input text: "{line}"')
                 logging.error(ex.args)
